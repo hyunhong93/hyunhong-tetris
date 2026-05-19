@@ -36,9 +36,37 @@
     </div>
   </div>
 
-  <a href="index.html" class="play-btn">PLAY</a>
+  <div id="auth-box">
+    <div id="auth-tabs">
+      <button class="tab-btn active" onclick="switchTab('login')">로그인</button>
+      <button class="tab-btn" onclick="switchTab('register')">회원가입</button>
+    </div>
+
+    <div id="login-tab">
+      <input type="email" id="login-email" placeholder="이메일" />
+      <input type="password" id="login-pw" placeholder="비밀번호" />
+      <button class="submit-btn" onclick="doLogin()">로그인</button>
+      <p class="auth-msg" id="login-msg"></p>
+    </div>
+
+    <div id="register-tab" style="display:none">
+      <input type="email" id="reg-email" placeholder="이메일" />
+      <input type="text" id="reg-nickname" placeholder="닉네임" />
+      <input type="password" id="reg-pw" placeholder="비밀번호" />
+      <button class="submit-btn" onclick="doRegister()">가입하기</button>
+      <p class="auth-msg" id="reg-msg"></p>
+    </div>
+
+    <div id="play-box" style="display:none">
+      <p id="welcome-text"></p>
+      <a href="index.html" class="play-btn">PLAY</a>
+      <button class="logout-btn" onclick="doLogout()">로그아웃</button>
+    </div>
+  </div>
+
   <p class="hint">BGM: Korobeiniki (Tetris Theme A)</p>
 
   <script src="landing.js"></script>
+  <script src="auth.js"></script>
 </body>
 </html>

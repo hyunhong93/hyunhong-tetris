@@ -133,3 +133,114 @@ kbd {
   color: #33335a;
   letter-spacing: 1px;
 }
+
+/* ─── Auth box ─────────────────────────────────────────────────── */
+#auth-box {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+#auth-tabs {
+  display: flex;
+  gap: 0;
+  border: 1px solid #2a2a5a;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 10px;
+  background: #16213e;
+  border: none;
+  color: #666;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.tab-btn.active {
+  background: #2a2a5a;
+  color: #a0a0ff;
+  font-weight: 600;
+}
+
+#login-tab,
+#register-tab {
+  width: 100%;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#login-tab input,
+#register-tab input {
+  width: 100%;
+  padding: 10px 14px;
+  background: #16213e;
+  border: 1px solid #2a2a5a;
+  border-radius: 6px;
+  color: #eee;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+#login-tab input:focus,
+#register-tab input:focus {
+  border-color: #4040aa;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 11px;
+  background: #4040aa;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.submit-btn:hover { background: #5555cc; }
+
+.auth-msg {
+  font-size: 0.8rem;
+  color: #e05555;
+  min-height: 18px;
+  text-align: center;
+}
+
+#play-box {
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+#welcome-text {
+  font-size: 0.9rem;
+  color: #a0a0ff;
+}
+
+.logout-btn {
+  background: none;
+  border: 1px solid #2a2a5a;
+  border-radius: 6px;
+  color: #555;
+  font-size: 0.78rem;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.logout-btn:hover {
+  color: #aaa;
+  border-color: #4a4a7a;
+}

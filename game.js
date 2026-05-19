@@ -1,3 +1,28 @@
+// ─── API ─────────────────────────────────────────────────────────────────────
+const API_BASE = 'http://localhost:8000';
+
+async function fetchTopScore() {
+  try {
+    const res  = await fetch(`${API_BASE}/scores/top`);
+    const data = await res.json();
+    document.getElementById('top-score-val').textContent = data.score > 0 ? data.score.toLocaleString() : '-';
+    document.getElementById('top-nickname').textContent  = data.score > 0 ? data.nickname : '';
+  } catch { /* 백엔드 미실행 시 무시 */ }
+}
+
+async function submitScore(score, level, lines) {
+  const token = localStorage.getItem('token');
+  if (!token) return false;
+  try {
+    const res = await fetch(`${API_BASE}/scores`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({ score, level, lines }),
+    });
+    return res.ok;
+  } catch { return false; }
+}
+
 // ─── BGM (Korobeiniki / Tetris Theme A) ──────────────────────────────────────
 const BGM = (() => {
   const BPM = 160, BEAT = 60 / BPM;
@@ -274,17 +299,21 @@ function startGame() {
   BGM.play();
 }
 
-function gameOver() {
+async function gameOver() {
   running = false;
   cancelAnimationFrame(raf);
   BGM.stop();
-  overlay.innerHTML = `
-    <h2>GAME OVER</h2>
-    <p>점수: ${score.toLocaleString()}</p>
-  `;
+  overlay.innerHTML = `<h2>GAME OVER</h2><p>점수: ${score.toLocaleString()}</p><p id="save-msg" style="font-size:13px;color:#888">저장 중...</p>`;
   overlay.style.display = 'flex';
   btn.textContent = '다시하기';
+  const saved = await submitScore(score, level, lines);
+  const saveMsg = document.getElementById('save-msg');
+  if (saveMsg) saveMsg.textContent = saved ? '✓ 점수가 저장됐습니다' : (localStorage.getItem('token') ? '저장 실패' : '로그인 후 점수가 저장됩니다');
+  if (saved) fetchTopScore();
 }
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+fetchTopScore();
 
 // ─── Controls ─────────────────────────────────────────────────────────────────
 btn.addEventListener('click', startGame);
