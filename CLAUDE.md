@@ -15,23 +15,49 @@ hyunhong93의 day02 실습 — HTML/CSS/JS를 분리한 테트리스 게임.
 ## 실행 방법
 
 ```bash
-# 이 디렉터리에서 실행 (CSS/JS 파일 분리로 서버 필수)
+# 백엔드 (터미널 1)
+pip install -r requirements.txt
+uvicorn backend.main:app --reload --port 8000
+
+# 프론트엔드 (터미널 2)
 python3 -m http.server 8765
 ```
 
-접속: `http://localhost:8765/landing.html` → PLAY 버튼으로 게임 진입
+접속: `http://localhost:8765/landing.html` → 로그인/회원가입 → PLAY 버튼으로 게임 진입
+
+## 테스트 실행
+
+```bash
+python3 -m pytest backend/tests/ -v
+```
+
+| 파일 | 케이스 수 | 내용 |
+|------|-----------|------|
+| `test_auth.py` | 5 | 회원가입(정상·중복), 로그인(정상·오비번·미존재) |
+| `test_scores.py` | 10 | 점수 저장(정상·미인증·invalid token), 최고점수 조회, 내 기록 조회 |
 
 ## 파일 구조
 
 | 파일 | 역할 |
 |------|------|
-| `landing.html` | 진입점. 조작법·점수 안내 + PLAY 버튼 → `index.html` |
-| `landing.css` | 랜딩 페이지 스타일 (다크 테마, 인포 그리드, 플레이 버튼) |
+| `landing.html` | 진입점. 로그인/회원가입 폼 + PLAY 버튼 → `index.html` |
+| `landing.css` | 랜딩 페이지 스타일 (다크 테마, 인포 그리드, 인증 폼) |
 | `landing.js` | 테트로미노 7종 배너 캔버스 드로잉 |
-| `index.html` | 게임 페이지 마크업 (Canvas + 사이드바) |
+| `auth.js` | 로그인·회원가입·로그아웃 API 연동 (JWT 저장) |
+| `index.html` | 게임 페이지 마크업 (Canvas + 사이드바 + Top Score 패널) |
 | `game.css` | 게임 페이지 스타일 (보드, 오버레이, 사이드바 패널) |
-| `game.js` | BGM 모듈 + 게임 로직 전체 |
-| `PLAN.md` | 구현 계획 문서 |
+| `game.js` | BGM 모듈 + 게임 로직 + 점수 저장 API 연동 |
+| `backend/main.py` | FastAPI 앱 진입점, CORS 설정 |
+| `backend/database.py` | SQLite 연결 (SQLAlchemy) |
+| `backend/models.py` | ORM 모델 (User, GameRecord) |
+| `backend/schemas.py` | Pydantic 스키마 |
+| `backend/auth.py` | JWT 발급·검증, bcrypt 해싱 |
+| `backend/routers/auth.py` | POST /register, POST /login |
+| `backend/routers/scores.py` | POST /scores, GET /scores/top, GET /scores/me |
+| `backend/tests/conftest.py` | 테스트용 인메모리 DB + TestClient fixture |
+| `backend/tests/test_auth.py` | 인증 엔드포인트 유닛테스트 |
+| `backend/tests/test_scores.py` | 점수 엔드포인트 유닛테스트 |
+| `requirements.txt` | Python 의존성 |
 
 ## 아키텍처 (`game.js`)
 

@@ -125,12 +125,29 @@ python3 -m http.server 8765
 
 ---
 
-## 구현 순서
+## 테스트
 
-1. `backend/` 디렉터리 및 기본 파일 생성
-2. DB 모델 정의 (User, GameRecord)
-3. 회원가입·로그인 API 구현 (JWT 발급)
-4. 점수 저장·조회 API 구현
-5. `landing.html` 로그인/회원가입 UI 추가
-6. `game.js` 게임 종료 시 점수 POST 연동
-7. `index.html` 최고점수 패널 추가
+```bash
+python3 -m pytest backend/tests/ -v
+```
+
+### 테스트 구조
+
+| 파일 | 케이스 | 설명 |
+|------|--------|------|
+| `test_auth.py` | 5개 | 회원가입(정상·중복 이메일), 로그인(정상·잘못된 비밀번호·미존재 이메일) |
+| `test_scores.py` | 10개 | 점수 저장(정상·미인증·invalid token), 최고점수(빈DB·단일·최대값·다중유저), 내 기록(정상·타인기록 미포함·미인증) |
+
+- 각 테스트는 인메모리 SQLite + `StaticPool`로 독립 실행 (실제 DB 영향 없음)
+- `conftest.py`의 `client` fixture가 테스트마다 DB를 초기화·정리
+
+## 구현 완료 현황
+
+- [x] `backend/` 디렉터리 및 기본 파일 생성
+- [x] DB 모델 정의 (User, GameRecord)
+- [x] 회원가입·로그인 API 구현 (JWT 발급)
+- [x] 점수 저장·조회 API 구현
+- [x] `landing.html` 로그인/회원가입 UI 추가
+- [x] `game.js` 게임 종료 시 점수 POST 연동
+- [x] `index.html` Top Score 패널 추가
+- [x] 유닛테스트 작성 (15개 전체 통과)
