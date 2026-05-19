@@ -5,6 +5,11 @@ hyunhong93의 day02 실습으로 HTML/CSS/JS를 분리한 테트리스 게임을
 랜딩 페이지(조작법·점수 안내) → 게임 페이지(Canvas + Web Audio API BGM) 구조.
 브라우저에서 바로 실행되며, 외부 라이브러리·빌드 도구 없음.
 
+## 배포
+
+- 배포 레포: https://github.com/hyunhong93/hyunhong-tetris
+- 배포 URL: https://hyunhong93.github.io/hyunhong-tetris/landing.html
+
 ## 목표 파일
 
 | 파일 | 역할 |

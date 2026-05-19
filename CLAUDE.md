@@ -7,6 +7,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 hyunhong93의 day02 실습 — HTML/CSS/JS를 분리한 테트리스 게임.
 외부 라이브러리·빌드 도구 없이 브라우저에서 바로 실행되는 순수 웹 구현.
 
+## 배포
+
+- 배포 레포: https://github.com/hyunhong93/hyunhong-tetris
+- 배포 URL: https://hyunhong93.github.io/hyunhong-tetris/landing.html
+
 ## 실행 방법
 
 ```bash
